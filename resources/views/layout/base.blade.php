@@ -22,25 +22,35 @@
         </div>
 
         <nav class="flex-1 p-4 space-y-2 mt-4">
-            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-indigo-600 text-white rounded-xl transition-all">
-                <i class="fa-solid fa-chart-pie w-5"></i>
+            <a href="/dashboard" 
+            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('dashboard*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
+                <i class="fa-solid fa-chart-pie w-5 {{ request()->is('dashboard*') ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400' }}"></i>
                 <span>Vue d'ensemble</span>
             </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all group">
-                <i class="fa-solid fa-users w-5 text-slate-500 group-hover:text-indigo-400"></i>
+
+            <a href="/users" 
+            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('users*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
+                <i class="fa-solid fa-users w-5 {{ request()->is('users*') ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400' }}"></i>
                 <span>Utilisateurs</span>
             </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all group">
-                <i class="fa-solid fa-building-user w-5 text-slate-500 group-hover:text-indigo-400"></i>
-                <span>Colocations</span>
+
+            <a href="/groups" 
+            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('groups*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
+                <i class="fa-solid fa-building-user w-5 {{ request()->is('groups*') ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400' }}"></i>
+                <span>Groups</span>
             </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all group">
-                <i class="fa-solid fa-receipt w-5 text-slate-500 group-hover:text-indigo-400"></i>
+
+            <a href="/expenses" 
+            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('expenses*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
+                <i class="fa-solid fa-receipt w-5 {{ request()->is('expenses*') ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400' }}"></i>
                 <span>Dépenses</span>
             </a>
+
             <div class="pt-4 pb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider pl-4">Modération</div>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all group">
-                <i class="fa-solid fa-ban w-5 text-slate-500 group-hover:text-red-400"></i>
+
+            <a href="/bans" 
+            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('bans*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
+                <i class="fa-solid fa-ban w-5 {{ request()->is('bans*') ? 'text-white' : 'text-slate-500 group-hover:text-red-400' }}"></i>
                 <span>Bannissements</span>
             </a>
         </nav>
@@ -69,5 +79,6 @@
         <i class="fa-solid fa-bars"></i>
     </button>
 
+    @yield("script")
 </body>
 </html>

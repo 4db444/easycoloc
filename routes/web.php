@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -16,6 +16,12 @@ Route::prefix("/auth")->group(function () {
 
 Route::middleware("auth")->group(function () {
     Route::get("/dashboard", [DashboardController::class, "index"]);
+
+    Route::prefix("/groups")->group(function () {
+        Route::get("/", [GroupController::class, "index"]);
+        Route::post("/", [GroupController::class, "store"]);
+        Route::get("/{id}", [GroupController::class, "show"]);
+    });
 });
 
 Route::fallback(function () {
