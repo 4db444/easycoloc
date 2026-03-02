@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - ColocManager</title>
+    <title>ColocManager</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -28,42 +28,43 @@
                 <span>Vue d'ensemble</span>
             </a>
 
-            <a href="/users" 
-            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('users*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
-                <i class="fa-solid fa-users w-5 {{ request()->is('users*') ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400' }}"></i>
-                <span>Utilisateurs</span>
-            </a>
-
             <a href="/groups" 
             class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('groups*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
                 <i class="fa-solid fa-building-user w-5 {{ request()->is('groups*') ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400' }}"></i>
-                <span>Groups</span>
+                <span>Mes Groupes</span>
             </a>
 
-            <a href="/expenses" 
-            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('expenses*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
-                <i class="fa-solid fa-receipt w-5 {{ request()->is('expenses*') ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400' }}"></i>
-                <span>Dépenses</span>
+            <a href="/profile" 
+            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('profile*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
+                <i class="fa-solid fa-user w-5 {{ request()->is('profile*') ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400' }}"></i>
+                <span>Mon Profil</span>
             </a>
 
-            <div class="pt-4 pb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider pl-4">Modération</div>
+            @if($user->is_admin)
+                <div class="pt-4 pb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider pl-4">Administration</div>
 
-            <a href="/bans" 
-            class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('bans*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
-                <i class="fa-solid fa-ban w-5 {{ request()->is('bans*') ? 'text-white' : 'text-slate-500 group-hover:text-red-400' }}"></i>
-                <span>Bannissements</span>
-            </a>
+                <a href="/admin" 
+                class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {{ request()->is('admin*') ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white group' }}">
+                    <i class="fa-solid fa-shield-halved w-5 {{ request()->is('admin*') ? 'text-white' : 'text-slate-500 group-hover:text-indigo-400' }}"></i>
+                    <span>Tableau de bord</span>
+                </a>
+            @endif
         </nav>
 
         <div class="p-4 border-t border-slate-800">
-            <div class="flex items-center gap-3 p-2 bg-slate-800/50 rounded-2xl">
-                <img src="https://ui-avatars.com/api/?name={{$user->first_name}}+{{$user->last_name}}&background=6366f1&color=fff" class="w-10 h-10 rounded-xl" alt="Admin">
-                <div class="overflow-hidden">
+            <a href="/profile" class="flex items-center gap-3 p-2 bg-slate-800/50 rounded-2xl hover:bg-slate-800 transition-colors">
+                <img src="https://ui-avatars.com/api/?name={{$user->first_name}}+{{$user->last_name}}&background=6366f1&color=fff" class="w-10 h-10 rounded-xl" alt="Avatar">
+                <div class="overflow-hidden flex-1">
                     <p class="text-sm font-bold text-white truncate">{{$user->first_name}} {{$user->last_name}}</p>
-                    <p class="text-xs text-slate-500 truncate">{{$user->email}}</p>
+                    <p class="text-xs text-slate-500 truncate flex items-center justify-between">
+                        {{$user->email}}
+                        <span class="text-yellow-500 ml-2" title="Réputation">
+                            <i class="fas fa-star text-[10px]"></i> {{$user->reputation}}
+                        </span>
+                    </p>
                 </div>
-            </div>
-            <form action="auth/logout" method="POST" class="flex items-center gap-3  mt-2 text-red-400 hover:bg-red-500/10 rounded-xl transition-all">
+            </a>
+            <form action="/auth/logout" method="POST" class="flex items-center gap-3  mt-2 text-red-400 hover:bg-red-500/10 rounded-xl transition-all">
                 @csrf
                 <button class="px-4 py-3 w-full h-full" type="submit">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>

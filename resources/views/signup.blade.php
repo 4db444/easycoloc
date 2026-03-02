@@ -51,6 +51,17 @@
                 <p class="text-gray-500 mt-2">Créez votre profil pour commencer à gérer votre colocation.</p>
             </div>
 
+            @if ($errors->any())
+                <div class="mb-6 flex items-start gap-3 bg-red-50 border border-red-200 text-red-800 px-5 py-4 rounded-2xl">
+                    <i class="fa-solid fa-circle-exclamation mt-0.5 text-red-500 flex-shrink-0"></i>
+                    <div>
+                        @foreach ($errors->all() as $error)
+                            <p class="text-sm font-medium">{{ $error }}</p>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
             <form id="registerForm" action="/auth/signup" method="POST" class="space-y-5">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -60,7 +71,7 @@
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
                                 <i class="fa-regular fa-user"></i>
                             </span>
-                            <input type="text" name="first_name" required
+                            <input type="text" name="first_name" required value="{{ old('first_name') }}"
                                 class="block w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all">
                         </div>
                     </div>
@@ -70,7 +81,7 @@
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
                                 <i class="fa-solid fa-signature"></i>
                             </span>
-                            <input type="text" name="last_name" required
+                            <input type="text" name="last_name" required value="{{ old('last_name') }}"
                                 class="block w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all">
                         </div>
                     </div>
@@ -82,7 +93,7 @@
                         <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
                             <i class="fa-regular fa-envelope"></i>
                         </span>
-                        <input type="email" name="email" required   
+                        <input type="email" name="email" required value="{{ old('email') }}"
                             class="block w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all">
                     </div>
                 </div>
@@ -124,11 +135,5 @@
             </div>
         </div>
     </div>
-
-    @if ($errors->any())
-        @foreach ($errors->all() as $err)
-            <p>{{$err}}</p>
-        @endforeach
-    @endif
 </body>
 </html>

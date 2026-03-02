@@ -29,6 +29,24 @@
                 <p class="text-slate-500 mt-2">Connectez-vous pour gérer vos comptes.</p>
             </div>
 
+            @if (session('success'))
+                <div class="mb-6 flex items-start gap-3 bg-emerald-50 border border-emerald-200 text-emerald-800 px-5 py-4 rounded-2xl animate-pulse">
+                    <i class="fa-solid fa-circle-check mt-0.5 text-emerald-500"></i>
+                    <p class="text-sm font-medium">{{ session('success') }}</p>
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="mb-6 flex items-start gap-3 bg-red-50 border border-red-200 text-red-800 px-5 py-4 rounded-2xl">
+                    <i class="fa-solid fa-circle-exclamation mt-0.5 text-red-500"></i>
+                    <div>
+                        @foreach ($errors->all() as $error)
+                            <p class="text-sm font-medium">{{ $error }}</p>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
             <form id="loginForm" action="/auth/login" method="POST" class="space-y-6">
                 @csrf
                 <div>

@@ -14,8 +14,24 @@
         </header>
 
         <div class="p-8 space-y-8">
-            
 
+            @if ($errors->any())
+                <div class="flex items-start gap-3 bg-red-50 border border-red-200 text-red-800 px-5 py-4 rounded-2xl">
+                    <i class="fa-solid fa-circle-exclamation mt-0.5 text-red-500 flex-shrink-0"></i>
+                    <div>
+                        @foreach ($errors->all() as $error)
+                            <p class="text-sm font-medium">{{ $error }}</p>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="flex items-start gap-3 bg-emerald-50 border border-emerald-200 text-emerald-800 px-5 py-4 rounded-2xl">
+                    <i class="fa-solid fa-circle-check mt-0.5 text-emerald-500 flex-shrink-0"></i>
+                    <p class="text-sm font-medium">{{ session('success') }}</p>
+                </div>
+            @endif
 
             <section>
                 <div class="flex items-center justify-between mb-6">
@@ -49,7 +65,7 @@
                             </div>
 
                             <div class="flex items-center justify-end pt-5 border-t border-slate-50">
-                                <a href="/groups/1" class="inline-flex items-center gap-2 bg-slate-900 text-white text-xs font-bold py-2 px-4 rounded-xl hover:bg-indigo-600 transition-colors group/btn">
+                                <a href="/groups/{{$group->id}}" class="inline-flex items-center gap-2 bg-slate-900 text-white text-xs font-bold py-2 px-4 rounded-xl hover:bg-indigo-600 transition-colors group/btn">
                                     Gérer
                                     <i class="fa-solid fa-arrow-right text-[10px] group-hover/btn:translate-x-1 transition-transform"></i>
                                 </a>
